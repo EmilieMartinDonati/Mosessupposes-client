@@ -1,0 +1,270 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================
+   DESIGN SYSTEM (COLORS ONLY)
+========================= */
+
+:root {
+  /* TEXT */
+  --foreground: #2f2a25;
+
+  /* BACKGROUNDS */
+  --bg: #f7f3ee;
+  --bg-soft: #fbf8f3;
+
+  --surface: #ffffff;
+  --surface-elevated: #f1e9df;
+  --surface-hover: #eadfce;
+
+  /* BORDERS */
+  --border: #e7ded3;
+  --border-strong: #d8c8b6;
+
+  /* ACCENTS */
+  --primary: #a8d5c3;
+  /* vert d’eau */
+  --warning: #e6b566;
+  /* miel */
+  --danger: #e8a3a3;
+  /* rosé */
+
+  /* NAV */
+  --nav-bg: #6f8fa3;
+  --nav-hover: #7fa3b8;
+  --nav-active: #5f7f93;
+}
+
+/* =========================
+   DARK MODE
+========================= */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground: #ffffff;
+
+    --bg: #12110f;
+    --bg-soft: #1a1815;
+
+    --surface: #1f1c18;
+    --surface-elevated: #25211d;
+
+    --border: #2a2622;
+    --border-strong: #3a342e;
+
+    --primary: #7fc9ad;
+    --warning: #d6a85c;
+    --danger: #d98f8f;
+
+    --nav-bg: #4e6b7c;
+    --nav-hover: #5f7f93;
+    --nav-active: #3f5663;
+  }
+}
+
+/* =========================
+   BASE
+========================= */
+
+body {
+  color: var(--foreground);
+  background-color: var(--bg);
+}
+
+/* =========================
+   APP LAYOUT (GLOBAL WRAPPER)
+========================= */
+
+@layer utilities {
+
+  .app-screen {
+    @apply flex h-screen w-screen;
+    background-color: var(--bg);
+  }
+
+  /* =========================
+     ADMIN LAYOUT (MAIN AREA)
+     -> ce qui est HORS navbar/sidebar
+  ========================= */
+
+  .admin-main {
+    @apply flex flex-col pb-10 min-w-0 w-full h-screen;
+    transition: margin-left 0.3s ease;
+  }
+
+  .admin-main--expanded {
+    margin-left: 10rem;
+  }
+
+  .admin-main--collapsed {
+    margin-left: 3rem;
+  }
+
+  /* =========================
+     PAGE ADMIN (container interne)
+  ========================= */
+
+  .admin-page {
+    @apply flex flex-col gap-4 w-full h-full;
+  }
+
+  .admin-content {
+    @apply flex flex-1 flex-col w-full overflow-y-auto justify-center;
+  }
+
+  .admin-toolbar {
+    @apply flex items-center gap-2;
+  }
+
+  /* =========================
+     SURFACES
+  ========================= */
+
+  .admin-bg {
+    background-color: var(--bg);
+  }
+
+  .admin-bg-soft {
+    background-color: var(--bg-soft);
+  }
+
+  .admin-surface {
+    background-color: var(--surface);
+  }
+
+  .admin-surface-elevated {
+    background-color: var(--surface-elevated);
+  }
+
+  /* =========================
+     BORDERS
+  ========================= */
+
+  .admin-border {
+    border-color: var(--border);
+  }
+
+  /* =========================
+     NAVBAR
+  ========================= */
+
+  .admin-navbar {
+    @apply fixed left-0 top-0 h-full z-50 flex flex-col justify-between py-6 px-3 transition-all duration-300 ease-in-out;
+
+    background-color: var(--nav-bg);
+    color: white;
+  }
+
+  .admin-navbar-expanded {
+    width: 10rem;
+  }
+
+  .admin-navbar-collapsed {
+    width: 3rem;
+  }
+
+  .admin-navbar-top {
+    @apply flex flex-col gap-4;
+  }
+
+  .admin-navbar-bottom {
+    @apply flex flex-col gap-3;
+  }
+
+  .admin-navbar-item {
+    @apply flex items-center gap-3 px-3 py-2 rounded-md transition;
+  }
+
+  .admin-navbar-item:hover {
+    background-color: var(--nav-hover);
+  }
+
+  .admin-navbar-item-active {
+    background-color: var(--nav-active);
+    color: white;
+  }
+
+  /* =========================
+     HEADER ADMIN
+  ========================= */
+
+  .admin-header {
+    @apply w-full flex items-center justify-between px-6 py-4 sticky top-0;
+
+    background-color: var(--surface-hover);
+    border-bottom: 1px solid var(--border);
+    color: var(--foreground);
+
+    backdrop-filter: blur(8px);
+  }
+
+  .admin-header-title {
+    @apply text-base tracking-tight;
+  }
+
+  .admin-header-actions {
+    @apply flex items-center gap-2;
+  }
+
+  /* =========================
+     BUTTONS
+  ========================= */
+
+  .btn-primary {
+    background-color: var(--primary);
+    color: #1f2d26;
+    @apply px-3 py-1.5 rounded-md text-sm transition;
+  }
+
+  .btn-secondary {
+    background-color: #efe7dd;
+    color: #4a4036;
+    @apply px-3 py-1.5 rounded-md text-sm transition;
+  }
+
+  .btn-danger {
+    background-color: var(--danger);
+    @apply px-3 py-1.5 rounded-md text-sm transition;
+  }
+
+  .btn-warning {
+    background-color: var(--warning);
+    @apply px-3 py-1.5 rounded-md text-sm transition;
+  }
+}
+
+.form-container {
+  @apply flex flex-col w-full h-full p-24;
+}
+
+.form {
+  @apply flex flex-col gap-4 w-full;
+}
+
+/* @layer components {
+
+
+
+  .form-group {
+    @apply flex flex-col gap-1;
+  }
+
+  .form-label {
+    @apply text-sm font-medium text-gray-700;
+  }
+
+  .form-input {
+    @apply px-3 py-2 rounded-md border border-[var(--border)]
+           bg-white text-[var(--foreground)]
+           focus:outline-none focus:ring-2 focus:ring-[var(--primary)];
+  }
+
+  .form-error {
+    @apply text-xs text-red-500;
+  }
+
+  .form-actions {
+    @apply flex items-center justify-end gap-2 pt-2;
+  }
+} */
