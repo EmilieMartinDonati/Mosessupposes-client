@@ -2,12 +2,10 @@
 
 import Header from "@/components/Header";
 import { SessionBanner } from "@/components/SessionBanner";
-import { TodoList } from "@/components/TodoList";
 
 export default function Home() {
   return <>
     <Header title="MOSES SUPPOSES" logo="icons/logo_red.png" />
     <SessionBanner title="Welcome to MOSES SUPPOSES" prompt="Join our live session!" participantsCount={24} />
-    <TodoList />
   </>;
 }

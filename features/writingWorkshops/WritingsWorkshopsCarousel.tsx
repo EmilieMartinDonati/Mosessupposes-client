@@ -8,12 +8,12 @@ type WritingWorkshopCarouselProps = {
         prompt?: string;
     }[];
     loading: boolean;
-    status: "live" | "upcoming";
+    visibility: "live" | "upcoming";
 };
 
-export default function WritingsWorkshopsCarousel({ title, workshops, loading, status }: WritingWorkshopCarouselProps) {
+export default function WritingsWorkshopsCarousel({ title, workshops, loading, visibility }: WritingWorkshopCarouselProps) {
 
-    if (loading && status === "live") {
+    if (loading && visibility === "live") {
         return (
             <div className="flex flex-col gap-4">
                 <div><h2>{title}</h2></div>

@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import { AdminPageLayout } from "@/components/AdminPageLayout";
 import WritingWorkshopForm from "@/features/writingWorkshops/WritingWorkshopForm";
-
 import { createWritingWorkshop } from "@/lib/supabase/writing_workshops/create";
 
 export default function WritingWorkshopNew() {

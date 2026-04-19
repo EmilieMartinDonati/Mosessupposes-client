@@ -1,19 +1,27 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getLiveWritingWorkshops, getUpcomingWritingWorkshops } from "@/lib/supabase/writing_workshops/get";
+import { getWritingWorkshopsByVisibility } from "@/lib/supabase/writing_workshops/get";
 import WritingsWorkshopsCarousel from "./WritingsWorkshopsCarousel";
 
-export default function WritingWorkshopList() {
+type WritingWorkshop = {
+    id: number;
+    title: string;
+    prompt: string;
+    start_date: string;
+    end_date: string;
+    status: "draft" | "published";
+};
 
-    const [liveWorkshops, setLiveWorkshops] = useState([]);
-    const [upcomingWorkshops, setUpcomingWorkshops] = useState([]);
-    const [loading, setLoading] = useState(true);
+export default function WritingWorkshopList() {
+    const [liveWorkshops, setLiveWorkshops] = useState<WritingWorkshop[]>([]);
+    const [upcomingWorkshops, setUpcomingWorkshops] = useState<WritingWorkshop[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         async function loadWorkshops() {
             const [currentWorkshops, toComeWorkshops] = await Promise.all([
-                getLiveWritingWorkshops({}),
-                getUpcomingWritingWorkshops({})
+                getWritingWorkshopsByVisibility({ onlyPublic: false, visibility: "live" }),
+                getWritingWorkshopsByVisibility({ onlyPublic: false, visibility: "upcoming" })
             ]);
             setLiveWorkshops(currentWorkshops);
             setUpcomingWorkshops(toComeWorkshops);
@@ -29,13 +37,13 @@ export default function WritingWorkshopList() {
                 title="🔥 En cours"
                 workshops={liveWorkshops}
                 loading={loading}
-                status="live"
+                visibility="live"
             />
             <WritingsWorkshopsCarousel
                 title="⏳ À venir"
                 workshops={upcomingWorkshops}
                 loading={loading}
-                status="upcoming"
+                visibility="upcoming"
             />
         </div>
     );
